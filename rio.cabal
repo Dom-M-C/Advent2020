@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3e87cb282e9a73b767cf8a621d982a5a1f16d2e856be5757540cbccea1a5318c
+-- hash: a11ff2fccf7cf253b0ab30d47ac992e902f3ec28694ccb2a012b6b055fcbf48a
 
 name:           rio
 version:        0.1.0.0
@@ -27,6 +27,7 @@ source-repository head
 
 library
   exposed-modules:
+      DayOne
       Lib
   other-modules:
       Paths_rio
