@@ -1,47 +1,51 @@
-module DayOne where
+module DayOne 
+    (   getValidExpensesPairs
+    ,   getValidExpensesTriples
+    ,   getTestPairs
+    ,   getTestTriples
+    ) where
 
-import Control.Monad(guard)
 import Data.Set as Set (fromList, toList)
 
 type Expense = Integer
 
-expenseReport :: [Expense]
-expenseReport = [1000..2020]
-
-data ExpensePair = Pair {
-    first   :: Expense,
-    second  :: Expense,
-    sum     :: Expense,
-    product :: Expense
+data Expenses = Expenses {
+    expenses       :: [Expense],
+    sumExpense     :: Expense,
+    productExpense :: Expense
 } deriving(Show)
 
-instance Eq ExpensePair where
-    (==) (Pair _ _ fstSum _) (Pair _ _ sndSum _) = fstSum == sndSum
+instance Eq Expenses where
+    (==) (Expenses _ exOne _) (Expenses _ exTwo _) = exOne == exTwo
 
-instance Ord ExpensePair where
-    (<=) (Pair _ _ fstSum _) (Pair _ _ sndSum _) = fstSum <= sndSum
+instance Ord Expenses where
+    (<=) (Expenses _ exOne _) (Expenses _ exTwo _) = exOne <= exTwo
 
-createExpensePair :: (Expense, Expense) -> ExpensePair
-createExpensePair (fstEx, sndEx) = Pair fstEx sndEx (fstEx + sndEx) (fstEx * sndEx)
+createExpensesPairs :: [Expense] -> [Expenses]
+createExpensesPairs xs = [Expenses [a, b] (a + b) (a * b)
+    | a <- xs
+    , b <- xs
+    , isSum2020 [a, b]]
 
-isSum2020 :: (Eq a, Num a) => a -> a -> Bool
-isSum2020 x y = x+y == 2020
+createExpensesTriples :: [Expense] -> [Expenses]
+createExpensesTriples xs = [Expenses triple (sum triple) (product triple)
+    | a <- xs
+    , b <- xs
+    , c <- xs
+    , let triple = [a, b, c]
+    , isSum2020 triple]
 
-valid2020Pairs :: [(Expense, Expense)] -> [(Expense, Expense)]
-valid2020Pairs p = do
-    vp@(x, y) <- p
-    guard(isSum2020 x y)
-    return vp
+isSum2020 :: (Eq a, Num a) => [a] -> Bool
+isSum2020 xs = sum xs == 2020
 
-filterValidExpensePairs :: [(Expense, Expense)] -> [ExpensePair]
-filterValidExpensePairs = Set.toList . Set.fromList . map createExpensePair . valid2020Pairs
+dedupeAndGetExpense :: [Expenses] -> [Expense]
+dedupeAndGetExpense = map productExpense . toList . fromList
 
-crossJoinExpenses :: [Expense] -> [(Expense, Expense)]
-crossJoinExpenses xs = --toList . fromList $ 
-    (,) <$> xs <*> xs
+getValidExpensesPairs :: [Expense] -> [Expense]
+getValidExpensesPairs = dedupeAndGetExpense . createExpensesPairs
 
-getValidExpenses :: [Expense] -> [ExpensePair]
-getValidExpenses = filterValidExpensePairs . crossJoinExpenses
+getValidExpensesTriples :: [Expense] -> [Expense]
+getValidExpensesTriples = dedupeAndGetExpense . createExpensesTriples
 
 testExample :: [Integer]
 testExample = 
@@ -53,5 +57,6 @@ testExample =
     ,  1456
     ]
 
-getTestPair = getValidExpenses testExample
---getPairs2020 testExample
+getTestPairs = getValidExpensesPairs testExample
+
+getTestTriples = getValidExpensesTriples testExample

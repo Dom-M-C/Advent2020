@@ -1,10 +1,9 @@
 module Main where
 
-import DayOne(getValidExpenses, product)
+import DayOne(getValidExpensesPairs, getValidExpensesTriples)
 
 main :: IO ()
 main = dayOnePartOne
-
 
 dayOneData :: IO [Integer]
 dayOneData = do 
@@ -15,4 +14,9 @@ dayOneData = do
 dayOnePartOne :: IO ()
 dayOnePartOne = do
     d <- dayOneData
-    print $ head . map DayOne.product $ getValidExpenses d
+    print $ head $ getValidExpensesPairs d
+
+dayOnePartTwo :: IO ()
+dayOnePartTwo = do
+    d <- dayOneData
+    print $ head $ getValidExpensesTriples d
