@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module DayTwo where
+module DayTwo (validPolicyCount) where
 
 import qualified Data.Text as T
 
@@ -11,13 +11,45 @@ testInput =
     ]
 
 data PasswordLine = PasswordLine 
-    {   passwordPolicyToken :: String
-    ,   password :: String
-    }
+    {   passwordPolicyToken :: T.Text
+    ,   passwordToken :: T.Text
+    } deriving (Show)
 
-class ParsePasswordLine a where
-    getCreatePasswordLine :: String -> a
+createPasswordLine :: T.Text -> PasswordLine
+createPasswordLine str = PasswordLine (policy str) (passwd str)
+    where
+        baseToken   = T.breakOn ":"
+        policy      = fst . baseToken
+        passwd      = T.drop 1 . snd . T.breakOn " " . snd . baseToken
+
+data PasswordPolicy = PasswordPolicy 
+    {   minOccurences   :: Integer
+    ,   maxOccurences   :: Integer
+    ,   luckyLetter     :: T.Text
+    ,   password        :: T.Text
+    } deriving(Show)
+
+mapToPasswordPolicy :: PasswordLine -> PasswordPolicy
+mapToPasswordPolicy (PasswordLine token pwd) = PasswordPolicy minO maxO ll pwd
+    where
+        brokenToken = T.breakOn "-" token
+        minO = (read . T.unpack . fst $ brokenToken) :: Integer
+        maxAndLetter = T.breakOn " " . T.drop 1 . snd $ brokenToken
+        maxO = (read . T.unpack . fst $ maxAndLetter) :: Integer
+        ll = T.drop 1 $ snd maxAndLetter
 
 
-instance ParsePasswordLine PasswordLine where
-    getCreatePasswordLine str = undefined
+isPasswordValid :: PasswordPolicy -> Bool
+isPasswordValid (PasswordPolicy minO maxO ll pwd) = luckyCharCount >= minO && luckyCharCount <= maxO
+    where
+        luckyPasswordChars = [c | c <- T.unpack pwd, c == head (T.unpack ll)]
+        luckyCharCount = toInteger $ length luckyPasswordChars
+
+processPolicies :: [T.Text] -> [PasswordPolicy]
+processPolicies = map $ mapToPasswordPolicy . createPasswordLine
+
+validPolicies :: [T.Text] -> [PasswordPolicy]
+validPolicies txtLines = [policy | policy <- processPolicies txtLines, isPasswordValid policy]
+
+validPolicyCount :: [T.Text] -> Int
+validPolicyCount = length . validPolicies
