@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 28172e9393877e3994e1688719534305ee2d05b826607872be0c174af6e77db0
+-- hash: 5c1d5a90304ff0d903ee05f48e8bd4a74f72aaed1e5b3697b4193790e83b5894
 
 name:           rio
 version:        0.1.0.0
@@ -28,6 +28,7 @@ source-repository head
 library
   exposed-modules:
       DayOne
+      DayTwo
       Lib
   other-modules:
       Paths_rio
@@ -35,7 +36,9 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , cond
     , containers
+    , text
   default-language: Haskell2010
 
 executable rio-exe
@@ -47,8 +50,10 @@ executable rio-exe
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , cond
     , containers
     , rio
+    , text
   default-language: Haskell2010
 
 test-suite rio-test
@@ -61,6 +66,8 @@ test-suite rio-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , cond
     , containers
     , rio
+    , text
   default-language: Haskell2010
