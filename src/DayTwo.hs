@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module DayTwo (validPolicyCount) where
+module DayTwo (validPolicyCount, validTobogganCorporatePolicyCount) where
 
 import qualified Data.Text as T
 
@@ -53,3 +53,17 @@ validPolicies txtLines = [policy | policy <- processPolicies txtLines, isPasswor
 
 validPolicyCount :: [T.Text] -> Int
 validPolicyCount = length . validPolicies
+
+isPasswordValidTobogganCorporatePolicy :: PasswordPolicy -> Bool
+isPasswordValidTobogganCorporatePolicy (PasswordPolicy minO maxO ll pwd) = xor (firstIndex == ll) (secondIndex == ll)
+    where
+        getTextAtTobogganIndex i = T.pack [T.index pwd $ fromIntegral i - 1]
+        firstIndex  = getTextAtTobogganIndex minO
+        secondIndex = getTextAtTobogganIndex maxO
+        xor a b = (a || b) && not (a && b)
+
+validTobogganCorporatePolicies :: [T.Text] -> [PasswordPolicy]
+validTobogganCorporatePolicies txtLines = [policy | policy <- processPolicies txtLines, isPasswordValidTobogganCorporatePolicy policy]
+
+validTobogganCorporatePolicyCount :: [T.Text] -> Int
+validTobogganCorporatePolicyCount = length . validTobogganCorporatePolicies
