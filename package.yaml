@@ -1,6 +1,6 @@
-name:                rio
+name:                advent2020
 version:             0.1.0.0
-github:              "githubuser/rio"
+github:              "https://github.com/Dom-M-C/Advent2020"
 license:             BSD3
 author:              "Author name here"
 maintainer:          "example@example.com"
@@ -29,7 +29,7 @@ library:
   source-dirs: src
 
 executables:
-  rio-exe:
+  advent2020-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -37,10 +37,10 @@ executables:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - rio
+    - advent2020
 
 tests:
-  rio-test:
+  advent2020-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
@@ -48,4 +48,4 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - rio
+    - advent2020
