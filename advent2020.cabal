@@ -4,13 +4,13 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 5c1d5a90304ff0d903ee05f48e8bd4a74f72aaed1e5b3697b4193790e83b5894
+-- hash: 45e76ad25387e1c7cbaef5bf28ba079a1aed6a6effb601916e61562d1d1b5d6a
 
-name:           rio
+name:           advent2020
 version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/rio#readme>
-homepage:       https://github.com/githubuser/rio#readme
-bug-reports:    https://github.com/githubuser/rio/issues
+homepage:       https://github.com/https://github.com/Dom-M-C/Advent2020#readme
+bug-reports:    https://github.com/https://github.com/Dom-M-C/Advent2020/issues
 author:         Author name here
 maintainer:     example@example.com
 copyright:      2020 Author name here
@@ -23,15 +23,16 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/rio
+  location: https://github.com/https://github.com/Dom-M-C/Advent2020
 
 library
   exposed-modules:
       DayOne
+      DayThree
       DayTwo
       Lib
   other-modules:
-      Paths_rio
+      Paths_advent2020
   hs-source-dirs:
       src
   build-depends:
@@ -41,33 +42,33 @@ library
     , text
   default-language: Haskell2010
 
-executable rio-exe
+executable advent2020-exe
   main-is: Main.hs
   other-modules:
-      Paths_rio
+      Paths_advent2020
   hs-source-dirs:
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      advent2020
+    , base >=4.7 && <5
     , cond
     , containers
-    , rio
     , text
   default-language: Haskell2010
 
-test-suite rio-test
+test-suite advent2020-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_rio
+      Paths_advent2020
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      advent2020
+    , base >=4.7 && <5
     , cond
     , containers
-    , rio
     , text
   default-language: Haskell2010
