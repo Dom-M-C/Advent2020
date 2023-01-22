@@ -5,6 +5,7 @@ module DayOne
     ,   getTestTriples
     ) where
 
+
 import Data.Set as Set (fromList, toList)
 
 type Expense = Integer

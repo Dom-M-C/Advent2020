@@ -1,6 +1,6 @@
 name:                advent2020
 version:             0.1.0.0
-github:              "https://github.com/Dom-M-C/Advent2020"
+github:              "Dom-M-C/Advent2020"
 license:             BSD3
 author:              "Author name here"
 maintainer:          "example@example.com"
@@ -24,6 +24,47 @@ dependencies:
 - containers
 - text
 - cond
+- rio >= 0.1.19.0
+
+default-extensions:
+- BangPatterns
+- BinaryLiterals
+- ConstraintKinds
+- DataKinds
+- DefaultSignatures
+- DeriveDataTypeable
+- DeriveFoldable
+- DeriveFunctor
+- DeriveGeneric
+- DeriveTraversable
+- DoAndIfThenElse
+- EmptyDataDecls
+- ExistentialQuantification
+- FlexibleContexts
+- FlexibleInstances
+- FunctionalDependencies
+- GADTs
+- GeneralizedNewtypeDeriving
+- InstanceSigs
+- KindSignatures
+- LambdaCase
+- MultiParamTypeClasses
+- MultiWayIf
+- NamedFieldPuns
+#- NoImplicitPrelude
+- OverloadedStrings
+- OverloadedLists
+- PartialTypeSignatures
+- PatternGuards
+- PolyKinds
+- RankNTypes
+- RecordWildCards
+- ScopedTypeVariables
+- StandaloneDeriving
+- TupleSections
+- TypeFamilies
+- TypeSynonymInstances
+- ViewPatterns
 
 library:
   source-dirs: src

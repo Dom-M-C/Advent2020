@@ -1,7 +1,10 @@
 module Main where
 
+import RIO.Prelude    
+
 import DayOne(getValidExpensesPairs, getValidExpensesTriples)
 import DayTwo(validPolicyCount, validTobogganCorporatePolicyCount)
+import DayThree
 
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO

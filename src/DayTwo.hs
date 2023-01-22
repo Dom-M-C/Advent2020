@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 module DayTwo (validPolicyCount, validTobogganCorporatePolicyCount) where
 
 import qualified Data.Text as T
